@@ -29,7 +29,7 @@ async function run() {
             res.send(allServices);
         })
 
-        app.get('/service/:id', async (req, res) => {
+        app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const service = await serviceCollection.findOne(query);
@@ -43,9 +43,9 @@ async function run() {
 run().catch(err => console.error(err))
 
 app.get('/', (req, res) => {
-    res.send('WildLife server is running')
+    res.send('DigiTech server is running')
 })
 
 app.listen(port, () => {
-    console.log(`WildLife server is running on ${port}`)
+    console.log(`DigiTech server is running on ${port}`)
 })
