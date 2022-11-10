@@ -41,9 +41,9 @@ async function run() {
 
             let query = {};
 
-            if (req.query._id) {
+            if (req.query.id) {
                 query = {
-                    _id: req.query._id
+                    id: req.query.id
                 }
             }
             const cursor = reviewCollection.find(query);
@@ -74,10 +74,12 @@ async function run() {
             res.send(result);
         });
 
-        app.put('/myreviews/:id', async (req, res) => {
+        app.put('/reviews/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
+
             const myreview = req.body;
+            console.log(myreview);
             const option = { upsert: true };
             const updatedReview = {
                 $set: {
