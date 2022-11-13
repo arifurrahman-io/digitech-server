@@ -16,6 +16,7 @@ async function run() {
     try {
         const serviceCollection = client.db('wildLife').collection('services');
         const reviewCollection = client.db('wildLife').collection('reviews');
+
         app.get('/services', async (req, res) => {
             const query = {}
             const cursor = serviceCollection.find(query).limit(3);
@@ -29,6 +30,13 @@ async function run() {
             const result = await serviceCollection.insertOne(service);
             res.send(result);
         });
+
+        app.post('/reviews', async (req, res) => {
+            const review = req.body;
+            console.log(review);
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
 
         app.get('/reviews/:id', async (req, res) => {
             const id = req.params.id;
@@ -49,6 +57,7 @@ async function run() {
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
             res.send(reviews);
+            console.log(reviews);
         });
 
         app.get('/myreviews', async (req, res) => {
